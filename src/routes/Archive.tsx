@@ -51,7 +51,7 @@ const Archive = () => {
       date: '2025-03-10',
       tags: ['플랫폼', '성장주', '인터넷'],
       description: 'NAVER의 클라우드 사업 확장성과 수익성 분석',
-      pdfUrl: './test1.pdf',
+      pdfUrl: '#',
     },
     {
       id: 3,
