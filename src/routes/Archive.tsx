@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
+import { useIsMobile } from '@/hooks/use-mobile';
 import samsungLogo from '../assets/samsungelectronic.png';
 import naverLogo from '../assets/naver.png';
 import lgLogo from '../assets/lgchemistry.png';
 import hyundaiLogo from '../assets/hyundai.png';
 import cswindlogo from '../assets/cswind2.png';
-import aprlogo from '../assets/apr1.svg';
-import poscologo from '../assets/POSCO.png';
+import aprlogo from '../assets/apr.png';
+import dearulogo from '../assets/dearu.png';
 import lottetourlogo from '../assets/lottetour.svg';
 import hanmilogo from '../assets/hanmi.png';
 
@@ -28,53 +29,54 @@ const Archive = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedIndustry, setSelectedIndustry] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
+  const isMobile = useIsMobile();
 
   // Sample data
   const reports: Report[] = [
-    {
-      id: 1,
-      title: '삼성전자 기업분석 리포트',
-      company: '삼성전자',
-      industry: '반도체',
-      author: '나민재',
-      date: '2025-03-15',
-      tags: ['반도체', 'IT', '대형주'],
-      description: '삼성전자의 메모리 반도체 사업 분석 및 향후 전망',
-      pdfUrl: './test2.pdf',
-    },
-    {
-      id: 2,
-      title: 'NAVER 투자분석',
-      company: 'NAVER',
-      industry: '인터넷서비스',
-      author: '송영훈',
-      date: '2025-03-10',
-      tags: ['플랫폼', '성장주', '인터넷'],
-      description: 'NAVER의 클라우드 사업 확장성과 수익성 분석',
-      pdfUrl: '#',
-    },
-    {
-      id: 3,
-      title: 'LG화학 ESG 관점 분석',
-      company: 'LG화학',
-      industry: '화학',
-      author: '우선우',
-      date: '2024-02-28',
-      tags: ['ESG', '배터리', '친환경'],
-      description: 'LG화학의 배터리 사업과 ESG 경영 분석',
-      pdfUrl: '#',
-    },
-    {
-      id: 4,
-      title: '현대차 Quant 모델링',
-      company: '현대자동차',
-      industry: '자동차',
-      author: '허선아',
-      date: '2024-02-20',
-      tags: ['자동차', 'Quant', '모델링'],
-      description: '현대차 주가 예측 모델 및 팩터 분석',
-      pdfUrl: '#',
-    },
+   // {
+   //   id: 1,
+   //   title: '삼성전자 기업분석 리포트',
+   //   company: '삼성전자',
+   //   industry: '반도체',
+   //   author: '나민재',
+   //   date: '2025-03-15',
+   //   tags: ['반도체', 'IT', '대형주'],
+   //   description: '삼성전자의 메모리 반도체 사업 분석 및 향후 전망',
+   //   pdfUrl: './test2.pdf',
+   // },
+    // {
+    //   id: 2,
+    //   title: 'NAVER 투자분석',
+    //   company: 'NAVER',
+    //   industry: '인터넷서비스',
+    //   author: '송영훈',
+    //   date: '2025-03-10',
+    //   tags: ['플랫폼', '성장주', '인터넷'],
+    //   description: 'NAVER의 클라우드 사업 확장성과 수익성 분석',
+    //   pdfUrl: '#',
+    // },
+    // {
+    //   id: 3,
+    //   title: 'LG화학 ESG 관점 분석',
+    //   company: 'LG화학',
+    //   industry: '화학',
+    //   author: '우선우',
+    //   date: '2024-02-28',
+    //   tags: ['ESG', '배터리', '친환경'],
+    //   description: 'LG화학의 배터리 사업과 ESG 경영 분석',
+    //   pdfUrl: '#',
+    // },
+    // {
+    //   id: 4,
+    //   title: '현대차 Quant 모델링',
+    //   company: '현대자동차',
+    //   industry: '자동차',
+    //   author: '허선아',
+    //   date: '2024-02-20',
+    //   tags: ['자동차', 'Quant', '모델링'],
+    //   description: '현대차 주가 예측 모델 및 팩터 분석',
+    //   pdfUrl: '#',
+    // },
     {
       id: 5,
       title: '씨에스윈드 기업분석 리포트',
@@ -110,18 +112,18 @@ const Archive = () => {
     },
     {
       id: 8,
-      title: 'POSCO홀딩스 기업분석',
-      company: 'POSCO홀딩스',
-      industry: '철강',
+      title: '디어유 기업분석 리포트',
+      company: '디어유',
+      industry: '엔터테인먼트',
       author: 'KIRA 4팀',
       date: '2024-02-20',
       tags: ['자동차', 'Quant', '모델링'],
-      description: 'POSCO홀딩스 주가 예측 모델 및 팩터 분석',
+      description: '디어유 주가 예측 모델 및 팩터 분석',
       pdfUrl: '#',
     },
     {
       id: 9,
-      title: '한미반도체 기업분석',
+      title: '한미반도체 기업분석 리포트',
       company: '한미반도체',
       industry: '반도체',
       author: 'KIRA 5팀',
@@ -133,17 +135,19 @@ const Archive = () => {
   ];
 
   const industries = ['전체', '반도체', '인터넷서비스', '화학', '자동차', '바이오/제약', '금융', '뷰티', '엔터테인먼트', '철강', '에너지', '관광'];
-  const years = ['전체', '2025'];
+  const years = ['전체', '2024', '2025'];
 
-  const filteredReports = reports.filter(report => {
-    const matchesSearch = report.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         report.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         report.author.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesIndustry = selectedIndustry === '' || selectedIndustry === '전체' || report.industry === selectedIndustry;
-    const matchesYear = selectedYear === '' || selectedYear === '전체' || report.date.startsWith(selectedYear);
-    
-    return matchesSearch && matchesIndustry && matchesYear;
-  });
+  const filteredReports = reports
+    .filter(report => {
+      const matchesSearch = report.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           report.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           report.author.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesIndustry = selectedIndustry === '' || selectedIndustry === '전체' || report.industry === selectedIndustry;
+      const matchesYear = selectedYear === '' || selectedYear === '전체' || report.date.startsWith(selectedYear);
+      
+      return matchesSearch && matchesIndustry && matchesYear;
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const containerStyle: React.CSSProperties = {
     minHeight: '100vh',
@@ -154,24 +158,24 @@ const Archive = () => {
   const headerStyle: React.CSSProperties = {
     backgroundColor: '#ffffff',
     borderBottom: '1px solid #e5e7eb',
-    padding: '40px 0',
+    padding: isMobile ? '20px 0' : '40px 0',
   };
 
   const headerContentStyle: React.CSSProperties = {
     maxWidth: '1280px',
     margin: '0 auto',
-    padding: '0 24px',
+    padding: isMobile ? '0 20px ' : '0 24px',
   };
 
   const titleStyle: React.CSSProperties = {
-    fontSize: '50px',
+    fontSize: isMobile ? '28px' : '50px',
     fontWeight: '700',
     color: '#111827',
     margin: '0 0 16px 0',
   };
 
   const subtitleStyle: React.CSSProperties = {
-    fontSize: '20px',
+    fontSize: isMobile ? '16px' : '20px',
     color: '#6b7280',
     margin: 0,
   };
@@ -179,11 +183,11 @@ const Archive = () => {
   const filtersStyle: React.CSSProperties = {
     maxWidth: '1280px',
     margin: '0 auto',
-    padding: '40px 24px',
+    padding: isMobile ? '20px 20px' : '40px 24px',
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '24px',
-    marginBottom: '40px',
+    gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
+    gap: isMobile ? '16px' : '24px',
+    marginBottom: isMobile ? '20px' : '40px',
   };
 
   const inputStyle: React.CSSProperties = {
@@ -208,10 +212,10 @@ const Archive = () => {
   const reportsGridStyle: React.CSSProperties = {
     maxWidth: '1280px',
     margin: '0 auto',
-    padding: '0 24px 80px 24px',
+    padding: isMobile ? '0 20px 60px 20px' : '0 24px 80px 24px',
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-    gap: '24px',
+    gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+    gap: isMobile ? '16px' : '24px',
   };
 
   // Function to get company logo URL
@@ -223,7 +227,7 @@ const Archive = () => {
       '현대자동차': hyundaiLogo,
       '씨에스윈드': cswindlogo,
       '에이피알': aprlogo,
-      'POSCO홀딩스': poscologo,
+      '디어유': dearulogo,
       '한미반도체': hanmilogo,
       '롯데관광개발': lottetourlogo 
     };
@@ -233,7 +237,7 @@ const Archive = () => {
   const getReportCardStyle = (company: string): React.CSSProperties => ({
     backgroundColor: '#ffffff',
     borderRadius: '12px',
-    padding: '24px',
+    padding: isMobile ? '20px' : '24px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
     position: 'relative',
@@ -257,7 +261,7 @@ const Archive = () => {
   };
 
   const cardTitleStyle: React.CSSProperties = {
-    fontSize: '20px',
+    fontSize: isMobile ? '18px' : '20px',
     fontWeight: '700',
     color: '#111827',
     margin: '0 0 12px 0',
